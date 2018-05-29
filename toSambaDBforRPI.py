@@ -31,10 +31,7 @@ def removefile(file1, file2):
 
 
 def removedir():
-    date_ = str(datetime.datetime.now().date().year)[2:] + ('0' + str(datetime.datetime.now().date().month))[-2:] + (
-                                                                                                                            '0' + str(
-                                                                                                                        datetime.datetime.now().date().day))[
-                                                                                                                    -2:]
+    date_ = str(datetime.datetime.now().date().year)[2:] + ('0' + str(datetime.datetime.now().date().month))[-2:] + ('0' + str(datetime.datetime.now().date().day))[-2:]
     print 'removedir: ', date_
     list = glob.glob(os.getcwd() + '/EXPORT/*/*')
     for fn in list:
