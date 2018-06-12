@@ -108,6 +108,20 @@ def Errlist(msg):
         f.write(str(datetime.datetime.now()))
         f.write('\n')
 
+def ping_reboot():
+    global check
+    response = os.system("ping -c 1 " + hostname)
+    # and then check the response...
+    if response == 0:
+        print hostname, 'is up!'
+
+    else:
+        print hostname, 'is down!'
+        time.sleep(3)
+        if check > 10:
+            os.system("sudo reboot")
+        return check+1
+
 hostname = "www.google.com" #example
 
 check = 0
@@ -116,16 +130,7 @@ while True:
     # time.sleep(1)                                                      # 명령이 일어나는 주기
     s = time.time()
     try:
-        response = os.system("ping -c 1 " + hostname)
-        # and then check the response...
-        if response == 0:
-            print hostname, 'is up!'
-
-        else:
-            print hostname, 'is down!'
-            check = check + 1
-            if check == 5:
-                os.system("sudo reboot")
+        check = ping_reboot()
 
         server, user, password, database, mchcd = initialize()  # 접속변수 설정 - 텍스트 환경설정에서 불러오기
         selectfile = selfile(original_glob())
