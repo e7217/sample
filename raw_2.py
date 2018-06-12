@@ -10,6 +10,7 @@ check = 0
 def ping_reboot():
     global check
     response = os.system("ping -c 1 " + hostname)
+    print '--------------------- checking network ---------------------> ', check
     # and then check the response...
     if response == 0:
         print hostname, 'is up!'
