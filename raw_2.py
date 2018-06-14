@@ -4,8 +4,7 @@ import sys
 import os
 import time
 
-hostname = "www.google.com" #example
-check = 0
+
 
 def ping_reboot():
     global check
@@ -23,6 +22,8 @@ def ping_reboot():
         return check+1
 
 try :
+    hostname = "www.google.com"  # example
+    check = 0
     fc = os.system("ls connect_env.txt")
     usb_c = os.system("ls /dev/ttyUSB0")
     txt_workno = os.system("ls txt_workno.txt")
