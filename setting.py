@@ -6,10 +6,17 @@ cmd2 = 'sudo python -m py_compile raw_2.py'
 cmd3 = 'sudo mv raw_2.pyc ../raw_.pyc'
 cmd4 = 'cd ..'
 
-os.system(cmd1)
-# time.sleep(1)
-os.system(cmd2)
-# time.sleep(1)
-os.system(cmd3)
-# time.sleep(1)
-os.system(cmd4)
+step = 0
+
+if step==0:
+    os.system(cmd1)
+    step += 1
+print step
+if step==1:
+    os.system(cmd2)
+    step += 1
+if step==2:
+    os.system(cmd3)
+    step += 1
+if step == 3:
+    os.system(cmd4)
