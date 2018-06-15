@@ -38,6 +38,7 @@ def removedir():
         if not date_ in fn:
             print fn
             shutil.rmtree(fn, True)
+            os.unlink(os.getcwd() + '/Err.txt')
 
 
 def copyfile(file):
@@ -111,9 +112,11 @@ def Errlist(msg):
 def ping_reboot():
     global check
     response = os.system("ping -c 1 " + hostname)
+    print '--------------- checking network ---------------> ', check
     # and then check the response...
     if response == 0:
         print hostname, 'is up!'
+        return check
 
     else:
         print hostname, 'is down!'
