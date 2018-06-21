@@ -2,6 +2,25 @@ from pymodbus.client.sync import ModbusTcpClient
 import pymssql
 import time
 
+hostname = "www.google.com"  # example
+check = 0
+
+def ping_reboot():
+    global check
+    response = os.system("ping -c 1 " + hostname)
+    print '--------------------- checking network ---------------------> ', check
+    # and then check the response...
+    if response == 0:
+        print hostname, 'is up!'
+        return check
+
+    else:
+        print hostname, 'is down!'
+        time.sleep(3)
+        if check > 10:
+            os.system("sudo reboot")
+        return check+1
+
 with open("connect_env.txt", 'r') as fr :
     buf_lines = fr.readlines()
     row_server = buf_lines[0:1]
@@ -40,6 +59,8 @@ try:
     client = ModbusTcpClient(host, port)
     client.connect()
     while True :
+
+        check = ping_reboot()
         reg_data = []
         for i in range(0, a):
             time.sleep(0.01)
