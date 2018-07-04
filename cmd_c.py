@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import time
 import pymssql
 import os
@@ -404,8 +406,8 @@ def db_check (cmd, data):
             print 'db_step_2'
             cursor.callproc('usp_xnwrk_u', [mchcd])
             time.sleep(0.01)
-            print 'db_step_3-1'
             # 180529 추가내용.
+            print 'db_step_3-1'
             cursor.callproc('usp_xngat11t_i02', [None, mchcd, 'S', 0])
             time.sleep(0.01)
             print 'db_step_3-2'

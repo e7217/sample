@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import ser_c
 import cmd_c
 import sys
