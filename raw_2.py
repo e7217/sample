@@ -16,10 +16,14 @@ def ping_reboot():
     # and then check the response...
     if response == 0:
         print hostname, 'is up!'
+        with open('./net_ok.txt', 'a') as f:
+            f.write(time.ctime()+' -------- ok!\n')
         return check
 
     else:
         print hostname, 'is down!'
+        with open('./net_down.txt', 'a') as f:
+            f.write(time.ctime()+' -------- Down!\n')
         time.sleep(3)
         if check > 10:
             os.system("sudo reboot")
