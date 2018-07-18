@@ -5,6 +5,13 @@ import pymssql
 import os
 import shutil
 
+# cmd command status
+def checkCmd(cmdno):
+    cC = time.ctime()
+    with open ('checkcmd.txt','a') as wr:
+        wr.write(cC + ' =========== < execpt event!! ---- cmd : {} >\n'.format(cmdno))
+        print cC + ' =========== < execpt event!! ---- cmd : {} >\n'.format(cmdno)
+
 def protocol (cmd, mode, zone_id, data):
     if cmd == 31 : 
         if mode == 's' : 
@@ -257,7 +264,7 @@ def db_check (cmd, data):
                             sqldata_1.append(results[column_no_1])
                         print sqldata_1
                         print 'db_step5'
-                    except : 
+                    except :
                         print 'passed'
                         pass
 
@@ -268,6 +275,7 @@ def db_check (cmd, data):
             os.chdir(origindir)  
             return sqldata_1
         except :
+            checkCmd(1)
             print 'no data in db'
             pass
         
@@ -302,6 +310,7 @@ def db_check (cmd, data):
             return results
         
         except :
+            checkCmd(2)
             print 'no data in db'
             pass
 
@@ -371,6 +380,7 @@ def db_check (cmd, data):
             return sqldata_2
         
         except :
+            checkCmd(3)
             print 'no data in db'
             pass
 
@@ -393,6 +403,8 @@ def db_check (cmd, data):
             time.sleep(0.01)
             print 'db_step_5 connection closed'
         except :
+            # log
+            checkCmd(4)
             print 'data is not input in db'
 
 #if for work start update
@@ -419,6 +431,7 @@ def db_check (cmd, data):
             print 'db_step_5 connection closed'
             
         except :
+            checkCmd(5)
             print 'data is not input in db'
 
 #if for 
@@ -441,6 +454,7 @@ def db_check (cmd, data):
             print 'db_step_5 connection closed'
             
         except :
+            checkCmd(6)
             print 'data is not input in db'
 
             
