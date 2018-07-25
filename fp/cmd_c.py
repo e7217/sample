@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import time
 import pymssql
 import os
