@@ -77,6 +77,7 @@ try:
         reg_data = []
         print 'client connection-------------------- ', client.connect()
         for i in range(0, a):
+            rr2 = None
             if i == 2 or 3 or 17 or 26:
                 time.sleep(0.01)
                 print b[i]
@@ -160,6 +161,7 @@ try:
         client2.connect()
         reg_data = []
         for i in range(0, a):
+            rr2 = None
             if i == 2 or 3 or 17 or 26:
                 time.sleep(0.01)
                 print b[i]
