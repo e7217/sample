@@ -142,14 +142,14 @@ try:
         print 'client connection-------------------- ', client.connect()
         for i in range(0, a):
 
-            if i == 31:
-                read_holding_register_uint32(i)
-
-            elif i == 1 or 27 or 28 or 29 or 30:
+            if i in [1, 27, 28, 29, 30]:
                 read_holding_register_int32(i)
 
-            elif i == 2 or 3 or 17 or 26:
+            elif i in [2, 3, 17, 26]:
                 read_holding_register_int64(i)
+
+            elif i in [31]:
+                read_holding_register_uint32(i)
 
             else:
                 read_holding_register_float32(i)
@@ -178,14 +178,14 @@ try:
         reg_data = []
         for i in range(0, a):
 
-            if i == 31:
-                read_holding_register_uint32(i)
-
-            elif i == 1 or 27 or 28 or 29 or 30:
+            if i in [1, 27, 28, 29, 30]:
                 read_holding_register_int32(i)
 
-            elif i == 2 or 3 or 17 or 26:
+            elif i in [2, 3, 17, 26]:
                 read_holding_register_int64(i)
+
+            elif i in [31]:
+                read_holding_register_uint32(i)
 
             else:
                 read_holding_register_float32(i)
