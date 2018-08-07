@@ -143,16 +143,16 @@ try:
         for i in range(0, a):
 
             if i == 2 or 3 or 17 or 26:
-                read_holding_register_int64()
+                read_holding_register_int64(i)
 
             elif i == 1 or 27 or 28 or 29 or 30:
-                read_holding_register_int32()
+                read_holding_register_int32(i)
 
             elif i == 31:
-                read_holding_register_uint32()
+                read_holding_register_uint32(i)
 
             else:
-                read_holding_register_float32()
+                read_holding_register_float32(i)
 
 
         reg_data.insert(0, mchcd)
@@ -179,16 +179,16 @@ try:
         for i in range(0, a):
 
             if i == 2 or 3 or 17 or 26:
-                read_holding_register_int64()
+                read_holding_register_int64(i)
 
             elif i == 1 or 27 or 28 or 29 or 30:
-                read_holding_register_int32()
+                read_holding_register_int32(i)
 
             elif i == 31:
-                read_holding_register_uint32()
+                read_holding_register_uint32(i)
 
             else:
-                read_holding_register_float32()
+                read_holding_register_float32(i)
             # reg_data.append(rr2.registers[0])
         reg_data.insert(0, mchcd2)
         print reg_data
