@@ -77,19 +77,67 @@ try:
         reg_data = []
         print 'client connection-------------------- ', client.connect()
         for i in range(0, a):
-            time.sleep(0.01)
-            print b[i]
-            d = None
-            d = int(b[i])
-            rr = client.read_holding_registers(d,1, unit = 1)
-            assert(rr.function_code < 0x80)
-            print rr
-            print rr.registers
-            decoder = BinaryPayloadDecoder.fromRegisters(rr.registers, Endian.Big, wordorder=Endian.Little)
-            print 'decoder = ' + decoder
-            print 'hr = ' + str(decoder.decode_32bit_float())
-            reg_data.append(decoder.decode_32bit_float()[0])
-            # reg_data.append(rr.registers[0])
+            if i == 2 or 3 or 17 or 26:
+                time.sleep(0.01)
+                print b[i]
+                d = None
+                d = int(b[i])
+                rr = client.read_holding_registers(d, 8)
+                assert (rr.function_code < 0x80)
+                print rr
+                print rr.registers
+                decoder = BinaryPayloadDecoder.fromRegisters(list(rr.registers), Endian.Big, wordorder=Endian.Little)
+                print 'decoder = ' + str(decoder)
+                frr = str(float(decoder.decode_64bit_int())/1000000)
+                print 'frr = ' + frr
+                reg_data.append(frr)
+
+            elif i == 1 or 27 or 28 or 29 or 30:
+                time.sleep(0.01)
+                print b[i]
+                d = None
+                d = int(b[i])
+                rr = client.read_holding_registers(d, 4)
+                assert (rr.function_code < 0x80)
+                print rr
+                print rr.registers
+                decoder = BinaryPayloadDecoder.fromRegisters(list(rr.registers), Endian.Big, wordorder=Endian.Little)
+                print 'decoder = ' + str(decoder)
+                frr = str(decoder.decode_32bit_int())
+                print 'frr = ' + frr
+                reg_data.append(frr)
+
+            elif i == 31:
+                time.sleep(0.01)
+                print b[i]
+                d = None
+                d = int(b[i])
+                rr = client.read_holding_registers(d, 4)
+                assert (rr.function_code < 0x80)
+                print rr
+                print rr.registers
+                decoder = BinaryPayloadDecoder.fromRegisters(list(rr.registers), Endian.Big, wordorder=Endian.Little)
+                print 'decoder = ' + str(decoder)
+                frr = str(decoder.decode_32bit_uint())
+                print 'frr = ' + frr
+                reg_data.append(frr)
+
+            else:
+                time.sleep(0.01)
+                print b[i]
+                d = None
+                d = int(b[i])
+                rr = client.read_holding_registers(d, 4)
+                assert (rr.function_code < 0x80)
+                print rr
+                print rr.registers
+                decoder = BinaryPayloadDecoder.fromRegisters(list(rr.registers), Endian.Big, wordorder=Endian.Little)
+                print 'decoder = ' + str(decoder)
+                frr = str("{0:.2f}".format(decoder.decode_32bit_float()))
+                print 'frr = ' + frr
+                reg_data.append(frr)
+
+
         reg_data.insert(0, mchcd)
         print reg_data
         prod_data = tuple(reg_data)
