@@ -39,13 +39,13 @@ def read_holding_register(client, type, i):
     print rr.registers
     decoder = BinaryPayloadDecoder.fromRegisters(list(rr.registers), Endian.Big, wordorder=Endian.Little)
     print 'decoder = ' + str(decoder)
-    if type == 'int64':
+    if type in ['int64']:
         frr = str("{0:.2f}".format(float(decoder.decode_64bit_int()) / 1000000))
-    elif type == 'int32':
+    elif type in ['int32']:
         frr = str(decoder.decode_32bit_int())
-    elif type == 'uint32':
+    elif type in ['uint32']:
         frr = str(decoder.decode_32bit_uint())
-    elif type == 'float32':
+    elif type in ['float32']:
         frr = str("{0:.2f}".format(decoder.decode_32bit_float()))
     print 'frr = ' + frr
     reg_data.append(frr)
