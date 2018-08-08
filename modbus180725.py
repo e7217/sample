@@ -25,7 +25,7 @@ def ping_reboot():
             os.system("sudo reboot")
         return check+1
 
-def read_holding_register_int64(i):
+def read_holding_register_int64(client,i):
     time.sleep(0.01)
     global b
     print b[i]
@@ -41,7 +41,7 @@ def read_holding_register_int64(i):
     print 'frr = ' + frr
     reg_data.append(frr)
 
-def read_holding_register_int32(i):
+def read_holding_register_int32(client,i):
     time.sleep(0.01)
     global b
     print b[i]
@@ -57,7 +57,7 @@ def read_holding_register_int32(i):
     print 'frr = ' + frr
     reg_data.append(frr)
 
-def read_holding_register_uint32(i):
+def read_holding_register_uint32(client,i):
     time.sleep(0.01)
     global b
     print b[i]
@@ -73,7 +73,7 @@ def read_holding_register_uint32(i):
     print 'frr = ' + frr
     reg_data.append(frr)
 
-def read_holding_register_float32(i):
+def read_holding_register_float32(client,i):
     time.sleep(0.01)
     global b
     print b[i]
@@ -124,7 +124,7 @@ try:
     
     host = '192.168.30.150'
     port = '502'
-    client = ModbusTcpClient(host, port)
+    client1 = ModbusTcpClient(host, port)
 
     host2 = '192.168.30.177'
     client2 = ModbusTcpClient(host2, port)
@@ -137,22 +137,22 @@ try:
         #host = '192.168.30.150'
         #port = '502'
         #client = ModbusTcpClient(host, port)
-        client.connect()
+        client1.connect()
         reg_data = []
-        print 'client connection-------------------- ', client.connect()
+        print 'client connection-------------------- ', client1.connect()
         for i in range(0, a):
 
             if i in [1, 27, 28, 29, 30]:
-                read_holding_register_int32(i)
+                read_holding_register_int32(client1,i)
 
             elif i in [2, 3, 17, 26]:
-                read_holding_register_int64(i)
+                read_holding_register_int64(client1,i)
 
             elif i in [31]:
-                read_holding_register_uint32(i)
+                read_holding_register_uint32(client1,i)
 
             else:
-                read_holding_register_float32(i)
+                read_holding_register_float32(client1,i)
 
 
         reg_data.insert(0, mchcd)
@@ -179,16 +179,16 @@ try:
         for i in range(0, a):
 
             if i in [1, 27, 28, 29, 30]:
-                read_holding_register_int32(i)
+                read_holding_register_int32(client2,i)
 
             elif i in [2, 3, 17, 26]:
-                read_holding_register_int64(i)
+                read_holding_register_int64(client2,i)
 
             elif i in [31]:
-                read_holding_register_uint32(i)
+                read_holding_register_uint32(client2,i)
 
             else:
-                read_holding_register_float32(i)
+                read_holding_register_float32(client2,i)
             # reg_data.append(rr2.registers[0])
         reg_data.insert(0, mchcd2)
         print reg_data
