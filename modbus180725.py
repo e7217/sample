@@ -167,7 +167,7 @@ try:
         time.sleep(0.01)
         conn.commit()
         conn.close()
-        client.close()
+        client1.close()
 
         ##LS-002
         #host2 = '192.168.30.177'
