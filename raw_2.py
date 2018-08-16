@@ -6,22 +6,27 @@ import sys
 import os
 import time
 
+
 # hostname = "www.google.com"  # example
 check = 0
 
 def ping_reboot():
     global check
-    response = os.system("ping -c 1 " + gateway)
+    with open('./env/ping_address.txt', 'r') as fi:
+        hostname = fi.readline()
+        print 'Ping address ---------------------------- : ' + str(hostname)
+
+    response = os.system("ping -c 1 " + hostname)
     print '--------------------- checking network ---------------------> ', check
     # and then check the response...
     if response == 0:
-        print gateway, 'is up!'
+        print hostname, 'is up!'
         with open('./net_ok.txt', 'a') as f:
             f.write(time.ctime()+' -------- ok!\n')
         return check
 
     else:
-        print gateway, 'is down!'
+        print hostname, 'is down!'
         with open('./net_down.txt', 'a') as f:
             f.write(time.ctime()+' -------- Down!\n')
         time.sleep(3)
@@ -50,7 +55,6 @@ else :
         row_machine = buf_lines[4:5]
         row_sequence_time = buf_lines[7:8]
         row_tmp_id_num = buf_lines[8:9]
-        row_gateway = buf_lines[9:10]
         tmp_id_num = int((row_tmp_id_num[0].replace('tmp_id_num = ', ''))[:-2])
         zone_id = []
         for i in range(0, tmp_id_num) :
@@ -58,7 +62,6 @@ else :
             zone_id.append(int(raw_id[0][12:-2]))
         zone_id.append(int(buf_lines[(tmp_id_num+9):(tmp_id_num+10)][0][14:-2]))
         mchcd = (row_machine[0].replace('machine = ', ''))[:-2]
-        gateway = (row_gateway[0].replace('gateway = ', ''))[-2]
         sequence_t = float((row_sequence_time[0].replace('sequence_cycle = ', ''))[:-2])
         print 'id = ', zone_id        
         while True :
