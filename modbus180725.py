@@ -28,65 +28,65 @@ def ping_reboot():
 def read_holding_register_int64(client,i):
     time.sleep(0.01)
     global b
-    print b[i]
+    # print b[i]
     d = None
     d = int(b[i])
     rr = client.read_holding_registers(d, 8)
     assert (rr.function_code < 0x80)
-    print rr
-    print rr.registers
+    # print rr
+    # print rr.registers
     decoder = BinaryPayloadDecoder.fromRegisters(list(rr.registers), Endian.Big, wordorder=Endian.Little)
-    print 'decoder = ' + str(decoder)
+    # print 'decoder = ' + str(decoder)
     frr = str("{0:.2f}".format(float(decoder.decode_64bit_int()) / 1000000))
-    print 'frr = ' + frr
+    # print 'frr = ' + frr
     reg_data.append(frr)
 
 def read_holding_register_int32(client,i):
     time.sleep(0.01)
     global b
-    print b[i]
+    # print b[i]
     d = None
     d = int(b[i])
     rr = client.read_holding_registers(d, 4)
     assert (rr.function_code < 0x80)
-    print rr
-    print rr.registers
+    # print rr
+    # print rr.registers
     decoder = BinaryPayloadDecoder.fromRegisters(list(rr.registers), Endian.Big, wordorder=Endian.Little)
-    print 'decoder = ' + str(decoder)
+    # print 'decoder = ' + str(decoder)
     frr = str(decoder.decode_32bit_int())
-    print 'frr = ' + frr
+    # print 'frr = ' + frr
     reg_data.append(frr)
 
 def read_holding_register_uint32(client,i):
     time.sleep(0.01)
     global b
-    print b[i]
+    # print b[i]
     d = None
     d = int(b[i])
     rr = client.read_holding_registers(d, 4)
     assert (rr.function_code < 0x80)
-    print rr
-    print rr.registers
+    # print rr
+    # print rr.registers
     decoder = BinaryPayloadDecoder.fromRegisters(list(rr.registers), Endian.Big, wordorder=Endian.Little)
-    print 'decoder = ' + str(decoder)
+    # print 'decoder = ' + str(decoder)
     frr = str(decoder.decode_32bit_uint())
-    print 'frr = ' + frr
+    # print 'frr = ' + frr
     reg_data.append(frr)
 
 def read_holding_register_float32(client,i):
     time.sleep(0.01)
     global b
-    print b[i]
+    # print b[i]
     d = None
     d = int(b[i])
     rr = client.read_holding_registers(d, 4)
     assert (rr.function_code < 0x80)
-    print rr
-    print rr.registers
+    # print rr
+    # print rr.registers
     decoder = BinaryPayloadDecoder.fromRegisters(list(rr.registers), Endian.Big, wordorder=Endian.Little)
-    print 'decoder = ' + str(decoder)
+    # print 'decoder = ' + str(decoder)
     frr = str("{0:.2f}".format(decoder.decode_32bit_float()))
-    print 'frr = ' + frr
+    # print 'frr = ' + frr
     reg_data.append(frr)
 
 with open("connect_env.txt", 'r') as fr :
@@ -106,7 +106,7 @@ proc_value_1 = ("'N'", "%s" % proc_mchcd)
 today = time.strftime("%y-%m-%d")
 today_dir_path = time.strftime("%y-%b")
 today_log = today +'db.txt'
-try:
+while True:
     conn = pymssql.connect(server[:-2], user[:-2], password[:-2], database[:-2], timeout = 3)
     cursor = conn.cursor()
     cursor.execute('usp_modset01t_s01 %s' % proc_mchcd)
@@ -129,7 +129,7 @@ try:
     host2 = '192.168.30.177'
     client2 = ModbusTcpClient(host2, port)
 
-    while True :
+    try :
 
         check = ping_reboot()
 
@@ -156,7 +156,7 @@ try:
 
 
         reg_data.insert(0, mchcd)
-        print reg_data
+        # print reg_data
         prod_data = tuple(reg_data)
         print prod_data
         time.sleep(5)
@@ -191,7 +191,7 @@ try:
                 read_holding_register_float32(client2,i)
             # reg_data.append(rr2.registers[0])
         reg_data.insert(0, mchcd2)
-        print reg_data
+        # print reg_data
         prod_data = tuple(reg_data)
         print prod_data
         time.sleep(5)
@@ -204,5 +204,7 @@ try:
         conn.close()
         client2.close()
     
-except ValueError:
-    print("Error")
+    except:
+        print("Error")
+
+
