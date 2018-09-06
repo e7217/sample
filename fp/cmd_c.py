@@ -407,7 +407,7 @@ def db_check (cmd, data):
             cursor.callproc('usp_xnwrk_u', [mchcd])
             time.sleep(0.01)
             print 'db_step_3-1'
-            # 180529 추가내용.
+            # 180529 added.
             cursor.callproc('usp_xngat11t_i02', [None, mchcd, 'S', 0])
             time.sleep(0.01)
             print 'db_step_3-2'
