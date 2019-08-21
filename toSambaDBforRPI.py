@@ -20,8 +20,9 @@ def CSV2list(filename):  # CSV파일을 리스트화
                 CSVlist.append(row)
 
         return CSVlist
-    except IOError:
+    except :
         print 'exist no file'
+        pass
 
 
 def removefile(file1, file2):
@@ -53,8 +54,9 @@ def copyfile(file):
 
         shutil.copy(file, os.getcwd() + '/EXPORT/')
         print 'copy complete'
-    except:
-        print 'copy failed'
+    except Exception as e:
+        print e
+        pass
     return
 
 
@@ -152,28 +154,36 @@ while True:
         # os.unlink(os.getcwd() + '/EXPORT/*/*/*/*WAVE.csv')
         ### remove process end
 
+    except csv.Error as ce :
+        removefile(selectfile, targetFile)
+        removedir()
 
+    except Exception as e:
+        endTime = time.time()
+        print 'total time : ', endTime - s
+        print e
+        pass
 
-    except IndexError:  # 복사할 파일이 없어서 멈추는 경우 무시
-        e = time.time()
-        print 'IndexE'
-        Errlist('IndexE, ')
-        # print 'totaltime: ', e - s
-        continue
-    except TypeError:
-        e = time.time()
-        print 'TypeE'
-        Errlist('TypeE, ')
-        # print 'totaltime: ', e - s
-        continue
-    except OSError:
-        print 'oeE'
-        # Errlist('WindowE, ')
-        e = time.time()
-        # print 'totaltime: ', e - s
-        continue
-    except pymssql.OperationalError:
-        print 'pymssql.operationE'
-        Errlist('pymssql.operationE, ')
-        continue
-    # except pymssql.DatabaseError
+    # except IndexError:  # 복사할 파일이 없어서 멈추는 경우 무시
+    #     e = time.time()
+    #     print 'IndexE'
+    #     Errlist('IndexE, ')
+    #     # print 'totaltime: ', e - s
+    #     continue
+    # except TypeError:
+    #     e = time.time()
+    #     print 'TypeE'
+    #     Errlist('TypeE, ')
+    #     # print 'totaltime: ', e - s
+    #     continue
+    # except OSError:
+    #     print 'oeE'
+    #     # Errlist('WindowE, ')
+    #     e = time.time()
+    #     # print 'totaltime: ', e - s
+    #     continue
+    # except pymssql.OperationalError:
+    #     print 'pymssql.operationE'
+    #     Errlist('pymssql.operationE, ')
+    #     continue
+    # # except pymssql.DatabaseError
