@@ -86,9 +86,11 @@ try:
         conn.commit()
         conn.close()
 
-except ValueError:
-    print 'Error'
-except _mssql.MSSQLDatabaseException:
-    print 'mssql error'
-except:
-    print 'Error'
+except Exception as e :
+    print e
+# except ValueError:
+#     print 'Error'
+# except _mssql.MSSQLDatabaseException:
+#     print 'mssql error'
+# except:
+#     print 'Error'
